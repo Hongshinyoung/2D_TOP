@@ -35,7 +35,7 @@ public class Monster_Controller : MonoBehaviour
 
     private void OnEnable()
     {
-        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
+        target = GameManager.Instance.player.GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         isDie = false;
     }
@@ -78,7 +78,7 @@ public class Monster_Controller : MonoBehaviour
     {
         gameObject.SetActive(false);
         isDie = true;
-        GameManager.instance.spawner.ReturnMonster(this);
+        GameManager.Instance.spawner.ReturnMonster(this);
     }
 
     private void LoadMonsterData()
@@ -118,7 +118,7 @@ public class Monster_Controller : MonoBehaviour
         if (!collision.CompareTag("Weapon")) return;
         else
         {
-            currentHP -= collision.GetComponent<RotationWeapon>().damage;
+            currentHP -= collision.GetComponent<Bullet>().damage;
         }
 
         if(currentHP > 0)

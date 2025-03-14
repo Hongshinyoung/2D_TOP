@@ -30,6 +30,7 @@ public class GoogleSheetLoader : MonoBehaviour
         {
             GoogleSheetData data = JsonUtility.FromJson<GoogleSheetData>(jsonFile.text);
             MonsterDataList = data.MonsterData;
+            ItemDataList = data.ItemData;
         }
         else
         {

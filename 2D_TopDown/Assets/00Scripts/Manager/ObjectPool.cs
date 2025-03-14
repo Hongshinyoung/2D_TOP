@@ -13,7 +13,6 @@ public class ObjectPool<T> where T : MonoBehaviour
         this.initialPoolSize = initialPoolSize;
         pool = new Queue<T>();
 
-        // 풀에 미리 객체 생성
         for (int i = 0; i < initialPoolSize; i++)
         {
             T obj = Object.Instantiate(prefab);
@@ -22,7 +21,6 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
     }
 
-    // 풀에서 객체를 가져오는 함수
     public T GetObject()
     {
         if (pool.Count > 0)
@@ -33,12 +31,10 @@ public class ObjectPool<T> where T : MonoBehaviour
         }
         else
         {
-            // 풀에 객체가 없으면 null 반환 (새로 생성하지 않음)
             return null;
         }
     }
 
-    // 사용이 끝난 객체를 풀에 반환하는 함수
     public void ReturnObject(T obj)
     {
         obj.gameObject.SetActive(false);
