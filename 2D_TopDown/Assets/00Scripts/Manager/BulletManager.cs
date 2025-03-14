@@ -6,6 +6,8 @@ public class BulletManager : MonoBehaviour
     public static BulletManager Instance;
     [SerializeField] private Bullet bulletPrefab;
     private ObjectPool<Bullet> bulletPool;
+    public float ShootRate = 0.2f;
+    [SerializeField] private int poolSize = 20;
     private string path = "Prefabs/Projectile";
 
     private void Awake()
@@ -15,7 +17,7 @@ public class BulletManager : MonoBehaviour
             Instance = this;
         }
         bulletPrefab = Resources.Load<Bullet>(path);
-        bulletPool = new ObjectPool<Bullet>(bulletPrefab, 20); // 불렛 20개 생성
+        bulletPool = new ObjectPool<Bullet>(bulletPrefab, poolSize);
     }
 
 

@@ -823,7 +823,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nearbyTarget: {fileID: 0}
-  radius: 5
+  radius: 6
 --- !u!1 &1574950260
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +860,7 @@ MonoBehaviour:
   - {fileID: 3389900621913364189, guid: f1906c9d54ee30a439271d391323cd39, type: 3}
   spawnInterval: 1
   monsterPath: Prefabs/Monsters
+  poolSize: 10
 --- !u!4 &1574950262
 Transform:
   m_ObjectHideFlags: 0
@@ -2983,7 +2984,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4add74aec5277dc4bb11e8936afec6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 6090606014351245373, guid: e2f61c45ac94f3a4b9e09a899f9ce827, type: 3}
+  bulletPrefab: {fileID: 0}
+  ShootRate: 0.2
+  poolSize: 20
 --- !u!4 &1962894594
 Transform:
   m_ObjectHideFlags: 0

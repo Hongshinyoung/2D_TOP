@@ -6,6 +6,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private Monster_Controller[] monsterPrefabs;
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private string monsterPath = "Prefabs/Monsters";
+    [SerializeField] private int poolSize = 10;
 
     private Dictionary<string, ObjectPool<Monster_Controller>> monsterPools;
     private float spawnTimer;
@@ -24,7 +25,7 @@ public class MonsterSpawner : MonoBehaviour
 
         foreach( var prefab in monsterPrefabs)
         {
-            monsterPools[prefab.name] = new ObjectPool<Monster_Controller>(prefab, 10);
+            monsterPools[prefab.name] = new ObjectPool<Monster_Controller>(prefab, poolSize);
         }
     }
 
