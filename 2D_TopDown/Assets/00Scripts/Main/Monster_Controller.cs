@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster_Controller : MonoBehaviour
@@ -76,6 +77,40 @@ public class Monster_Controller : MonoBehaviour
 
     public void Die()
     {
+        List<int> dropItemIDs = new List<int>();
+
+        if (dropItem.Contains("/"))
+        {
+            string[] splitData = dropItem.Split('/');
+            foreach(string value in splitData)
+            {
+                if(int.TryParse(value, out int parsedValue))
+                {
+                    dropItemIDs.Add(parsedValue);
+                }
+            }
+        }
+        else
+        {
+            if(int.TryParse(dropItem, out int parsedValue))
+            {
+                dropItemIDs.Add(parsedValue);
+            }
+        }
+
+        foreach(int itemID in dropItemIDs)
+        {
+            GameObject itemPrefab = Resources.Load<GameObject>($"Prefabs/Items/{itemID}");
+            if (itemPrefab != null)
+            {
+                Instantiate(itemPrefab, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("아이템 없음");
+            }
+        }
+
         gameObject.SetActive(false);
         isDie = true;
         GameManager.Instance.spawner.ReturnMonster(this);
@@ -121,7 +156,7 @@ public class Monster_Controller : MonoBehaviour
             currentHP -= collision.GetComponent<Bullet>().damage;
         }
 
-        if(currentHP > 0)
+        if (currentHP > 0)
         {
 
         }
