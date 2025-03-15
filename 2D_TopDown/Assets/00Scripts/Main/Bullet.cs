@@ -5,7 +5,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour
 {
     public float damage = 10f;
-    public float shootSpeed = 10f;
+    public float shootSpeed = 6f;
     private Action onReturn;
    
     public void Shoot(Vector2 direction, Action returnCallback)

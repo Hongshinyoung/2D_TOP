@@ -2985,7 +2985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
-  ShootRate: 0.2
+  ShootRate: 0.15
   poolSize: 20
 --- !u!4 &1962894594
 Transform:

@@ -6,7 +6,7 @@ public class BulletManager : MonoBehaviour
     public static BulletManager Instance;
     [SerializeField] private Bullet bulletPrefab;
     private ObjectPool<Bullet> bulletPool;
-    public float ShootRate = 0.2f;
+    public float ShootRate = 0.1f;
     [SerializeField] private int poolSize = 20;
     private string path = "Prefabs/Projectile";
 

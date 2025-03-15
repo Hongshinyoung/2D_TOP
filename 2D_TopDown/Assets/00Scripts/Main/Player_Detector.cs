@@ -9,6 +9,13 @@ public class Player_Detector : MonoBehaviour
     [SerializeField] private Transform nearbyTarget;
     [SerializeField] private float radius = 7f;
     private float lastShotTime = 0f;
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
 
     private void FixedUpdate()
     {
@@ -16,8 +23,11 @@ public class Player_Detector : MonoBehaviour
         nearbyTarget = GetNearbyMonster();
         if(nearbyTarget != null && Time.time >= lastShotTime + BulletManager.Instance.ShootRate)
         {
-            Vector2 direction = (nearbyTarget.position - transform.position).normalized;
-            BulletManager.Instance.ShootBullet(transform.position, direction);
+            if(rb.velocity == Vector2.zero)
+            {
+                Vector2 direction = (nearbyTarget.position - transform.position).normalized;
+                BulletManager.Instance.ShootBullet(transform.position, direction);
+            }
             lastShotTime = Time.time;
         }
     }
