@@ -8,8 +8,10 @@ public class Player_Controller : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 moveInput;
-    [SerializeField] private float moveSpeed = 6.0f;
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private float moveSpeed = 6.0f;
+    private int currentHP;
+    private int AttackPower;
 
     private void Awake()
     {
@@ -40,5 +42,13 @@ public class Player_Controller : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput.x < 0;
         }
+    }
+
+    public void ApplyItemEffect(Item_Data itemData)
+    {
+        if (itemData == null) return;
+
+        currentHP += itemData.MaxHP;
+        AttackPower += itemData.MaxAtk;
     }
 }

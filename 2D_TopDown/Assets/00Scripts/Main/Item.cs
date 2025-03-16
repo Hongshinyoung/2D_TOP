@@ -1,23 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IInteractable
 {
     [SerializeField] private int itemID;
-    [SerializeField] private string name;
-    [SerializeField] private string description;
-    [SerializeField] private int unlockLev;
-    [SerializeField] private int maxHP;
-    [SerializeField] private float maxHPMul;
-    [SerializeField] private int maxMp;
-    [SerializeField] private float maxMpMul;
-    [SerializeField] private int maxAtk;
-    [SerializeField] private float maxAtkMul;
-    [SerializeField] private int maxDef;
-    [SerializeField] private float maxDefMul;
-    [SerializeField] private int status;
+    private Item_Data itemData;
+
+    public void Interact(GameObject interactor)
+    {
+        if(interactor.CompareTag("Player"))
+        {
+            ApplyEffect(interactor);
+            Destroy(gameObject);
+        }
+    }
+
+    private void ApplyEffect(GameObject player)
+    {
+        Player_Controller playerController = player.GetComponent<Player_Controller>();
+        if (playerController != null)
+        {
+            playerController.ApplyItemEffect(itemData);
+        }
+    }
 
     private void Awake()
     {
@@ -28,30 +36,14 @@ public class Item : MonoBehaviour
     {
         if (GoogleSheetLoader.Instance == null || GoogleSheetLoader.Instance.ItemDataList == null)
         {
-            Debug.Log("데이터 로드 실패.");
+            Debug.Log("데이터 로드실패");
             return;
         }
 
-        Item_Data data = GoogleSheetLoader.Instance.ItemDataList.Find(m => m.ItemID == itemID);
-        if (data != null)
+        itemData = GoogleSheetLoader.Instance.ItemDataList.Find(m => m.ItemID == itemID);
+        if (itemData == null)
         {
-            itemID = data.ItemID;
-            name = data.Name;
-            description = data.Description;
-            unlockLev = data.UnlockLev;
-            maxHP = data.MaxHP;
-            maxHPMul = data.MaxHPMul;
-            maxMp = data.MaxMp;
-            maxMpMul = data.MaxMpMul;
-            maxAtk = data.MaxAtk;
-            maxAtkMul = data.MaxAtkMul;
-            maxDef = data.MaxDef;
-            maxDefMul = data.MaxDefMul;
-            status = data.Status;
-        }
-        else
-        {
-            Debug.Log("데이터 없음");
+            Debug.Log("아이템 데이터 없음");
         }
     }
 
@@ -60,7 +52,7 @@ public class Item : MonoBehaviour
         if (!collision.CompareTag("Player")) return;
         else
         {
-            Destroy(gameObject);
+            Interact(collision.gameObject);
         }
     }
 }
